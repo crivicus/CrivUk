@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-CrivServer.CrivUk-07071CB4-16AD-4412-801C-6E840B18307B</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrivServer.Data\CrivServer.Data.csproj" />
+    <ProjectReference Include="..\CrivServer.Infrastructure\CrivServer.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
