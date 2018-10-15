@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CrivServer.Data.Services
 {
-    public interface IDatabaseConnection
+    public interface IDatabaseFactory
     {
-        Task ConnectToDatabase(string connectionString, IServiceCollection services);
+        Task ConnectToDatabase(string connectionString);
     }
 }

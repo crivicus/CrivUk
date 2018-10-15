@@ -5,7 +5,7 @@ using CrivServer.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrivServer.Data
+namespace CrivServer.Data.Contexts
 {
     public class CrivDbContext : IdentityDbContext<ApplicationUser>
     {

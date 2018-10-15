@@ -1,35 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CrivServer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using CrivServer.Data.Models;
 using CrivServer.Infrastructure.Services;
-using CrivServer.Data.Services;
+using Microsoft.Extensions.Logging;
+using CrivServer.Infrastructure.Extensions;
 
 namespace CrivServer.CrivUk
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private readonly IHostingEnvironment _env;
+        private readonly IConfiguration _config;        
+        private readonly ILoggerFactory _loggerFactory;
 
-        public IConfiguration Configuration { get; }
+
+        public Startup(IHostingEnvironment environment, IConfiguration configuration, ILoggerFactory loggerFactory)
+        {
+            _env = environment;
+            _config = configuration;
+            _loggerFactory = loggerFactory;
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var logger = _loggerFactory.CreateLogger<Startup>();
+            if (_env.IsDevelopment())
+            {
+                // Development service configuration
+                logger.LogInformation("Development environment");               
+            } else {
+                // Non-development service configuration
+                logger.LogInformation($"Environment: {_env.EnvironmentName}");
+            }
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -37,23 +44,9 @@ namespace CrivServer.CrivUk
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
-            services.AddDbContext<CrivDbContext>(options =>
-                options.UseMySql(connectionString));
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<CrivDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options => {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 7;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.SignIn.RequireConfirmedEmail = false;
-            });
+            // Add database and identity services           
+            services.ConfigureDataService(_config, _env);
+            services.ConfigureIdentityService(_env);
 
             // Add application services.            
             services.AddTransient<IEmailSender, EmailSender>();
@@ -62,12 +55,12 @@ namespace CrivServer.CrivUk
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseDatabaseErrorPage();                
             }
             else
             {
@@ -79,7 +72,9 @@ namespace CrivServer.CrivUk
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
+            //Configure database and identity within the app
+            app.ConfigureDataApplication(_env, _config);
+            app.ConfigureIdentityApplication(_env);
 
             app.UseMvc(routes =>
             {
