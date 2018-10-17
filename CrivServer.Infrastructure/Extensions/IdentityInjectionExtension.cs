@@ -16,12 +16,15 @@ namespace CrivServer.Infrastructure.Extensions
             {
                 services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<InMemoryContext>()
+                    .AddDefaultUI()
                     .AddDefaultTokenProviders();
             }
             else
             {
                 services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<CrivDbContext>()
+                    .AddSignInManager<SignInManager<ApplicationUser>>()
+                    .AddDefaultUI()
                     .AddDefaultTokenProviders();
             }
 
@@ -53,6 +56,7 @@ namespace CrivServer.Infrastructure.Extensions
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
                 options.LoginPath = "/Identity/Account/Login";
+                options.LogoutPath = "/Identity/Account/Logout";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });

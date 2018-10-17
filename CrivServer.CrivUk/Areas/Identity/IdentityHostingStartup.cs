@@ -1,6 +1,7 @@
 ﻿using System;
 using CrivServer.Data.Contexts;
 using CrivServer.Data.Models;
+using CrivServer.Infrastructure.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -16,6 +17,8 @@ namespace CrivServer.CrivUk.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
+                services.AddTransient<IEmailSender, EmailSender>();
+                services.AddTransient<ISmsSender, SmsSender>();
             });
         }
     }
