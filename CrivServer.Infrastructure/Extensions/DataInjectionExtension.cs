@@ -34,7 +34,7 @@ namespace CrivServer.Infrastructure.Extensions
             }
             else
             {
-
+                app.ApplicationServices.GetService<CrivDbContext>().Database.Migrate();
             }
             return app;
         }

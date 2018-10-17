@@ -9,6 +9,7 @@ namespace CrivServer.Data.Contexts
 {
     public class InMemoryContext : IdentityDbContext<ApplicationUser>
     {
+        public InMemoryContext() { }
         public InMemoryContext(DbContextOptions<InMemoryContext> options)
             : base(options)
         {

@@ -9,6 +9,7 @@ namespace CrivServer.Data.Contexts
 {
     public class CrivDbContext : IdentityDbContext<ApplicationUser>
     {
+        public CrivDbContext() { }
         public CrivDbContext(DbContextOptions<CrivDbContext> options)
             : base(options)
         {
