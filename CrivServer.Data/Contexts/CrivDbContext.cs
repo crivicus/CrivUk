@@ -14,6 +14,7 @@ namespace CrivServer.Data.Contexts
         {
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<DbContentModel> ContentModels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -22,6 +23,13 @@ namespace CrivServer.Data.Contexts
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity.ToTable(name: "AspNetUser", schema: "crivdb");
+                entity.Property(e => e.Id).HasColumnName("AspNetUserId");
+                entity.Property(e => e.UserType).HasColumnName("UserType");
+            });
 
             builder.Entity<DbContentModel>(entity =>
             {
