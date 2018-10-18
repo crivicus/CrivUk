@@ -17,8 +17,6 @@ namespace CrivServer.CrivUk.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddTransient<IEmailSender, EmailSender>();
-                services.AddTransient<ISmsSender, SmsSender>();
             });
         }
     }

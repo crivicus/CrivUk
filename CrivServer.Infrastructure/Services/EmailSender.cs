@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,17 +20,26 @@ namespace CrivServer.Infrastructure.Services
         public Task SendEmailAsync(string email, string subject, string message)
         {
             var emailMessage = $"To: {email}\nSubject: {subject}\nMessage: {message}\n\n";
-            File.AppendAllText(@"\App_Data\emails.txt", emailMessage);
+            var location = string.Format(@"{0}\emails.txt", AppDomain.CurrentDomain.GetData("DataDirectory").ToString());
+            if(!File.Exists(location)){
+                File.Create(location);             
+            }
+            File.SetAttributes(location, FileAttributes.Normal);
+            File.AppendAllText(location, emailMessage);
+            File.SetAttributes(location, FileAttributes.ReadOnly);
             return Task.CompletedTask;
         }
-    }
-
-    public class SmsSender : ISmsSender
-    {
         public Task SendSmsAsync(string email, string subject, string message)
         {
             var emailMessage = $"To: {email}\nSubject: {subject}\nMessage: {message}\n\n";
-            File.AppendAllText(@"\App_Data\emails.txt", emailMessage);
+            var location = string.Format(@"{0}\emails.txt", AppDomain.CurrentDomain.GetData("DataDirectory").ToString());
+            if (!File.Exists(location))
+            {
+                File.Create(location);
+            }
+            File.SetAttributes(location, FileAttributes.Normal);
+            File.AppendAllText(location, emailMessage);
+            File.SetAttributes(location, FileAttributes.ReadOnly);
             return Task.CompletedTask;
         }
     }

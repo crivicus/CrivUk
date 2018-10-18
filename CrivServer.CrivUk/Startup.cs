@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using CrivServer.Infrastructure.Extensions;
 using System;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace CrivServer.CrivUk
 {
@@ -71,7 +72,6 @@ namespace CrivServer.CrivUk
 
             // Add application services.            
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<ISmsSender, SmsSender>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddRazorPagesOptions(options =>
             {
