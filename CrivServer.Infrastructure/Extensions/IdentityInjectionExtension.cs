@@ -15,7 +15,7 @@ namespace CrivServer.Infrastructure.Extensions
             if (env.IsDevelopment())
             {
                 services.AddIdentity<ApplicationUser, IdentityRole>()
-                    .AddEntityFrameworkStores<InMemoryContext>()
+                    .AddEntityFrameworkStores<CrivDbContext>()
                     .AddDefaultUI()
                     .AddDefaultTokenProviders();
             }

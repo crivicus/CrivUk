@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /CrivServer.CrivUk/appsettings.json
 /CrivServer.CrivUk/hosting.json
+/CrivServer.CrivUk/App_Data/emails.txt

@@ -3,7 +3,24 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-CrivServer.CrivUk-07071CB4-16AD-4412-801C-6E840B18307B</UserSecretsId>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Error\403.cshtml" />
+    <Content Remove="Views\Error\404.cshtml" />
+    <Content Remove="Views\Error\500.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="App_Data\emails.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Error\403.cshtml" />
+    <None Include="Views\Error\404.cshtml" />
+    <None Include="Views\Error\500.cshtml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -13,6 +30,15 @@
   <ItemGroup>
     <ProjectReference Include="..\CrivServer.Data\CrivServer.Data.csproj" />
     <ProjectReference Include="..\CrivServer.Infrastructure\CrivServer.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Home\OpenContentPage.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Home\ClosedContentPage.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
 </Project>

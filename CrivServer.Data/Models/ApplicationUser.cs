@@ -6,5 +6,7 @@ namespace CrivServer.Data.Models
     public class ApplicationUser : IdentityUser
     {
         public int UserType { get; set; }
+
+        public int GetUserType() { return UserType; }
     }
 }

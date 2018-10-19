@@ -1,10 +1,14 @@
-﻿using System;
+﻿using CrivServer.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CrivServer.Infrastructure.ModelHelpers
 {
-    public class ModelHeart
+    public abstract class ModelHeart
     {
+        public DbContentModel PageContent { get; set; }
+
+        public DbContentModel GetContent() { return PageContent; }
     }
 }

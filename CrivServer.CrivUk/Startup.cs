@@ -8,8 +8,9 @@ using CrivServer.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 using CrivServer.Infrastructure.Extensions;
 using System;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Http.Internal;
+using CrivServer.Data.Contexts;
 
 namespace CrivServer.CrivUk
 {
@@ -86,12 +87,15 @@ namespace CrivServer.CrivUk
         {
             if (_env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();                
+                //app.UseExceptionHandler("/error/{0}");
+                app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
+                //app.UseDeveloperExceptionPage();
+                //app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/error/{0}");
+                app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");                
                 app.UseHsts();
             }
             // Use this code if you want the App_Data folder to be in wwwroot
@@ -101,20 +105,33 @@ namespace CrivServer.CrivUk
             string baseDir = _env.ContentRootPath;
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.Combine(baseDir, "App_Data"));
             //string dataDir = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            
             //Configure database and identity within the app
             app.ConfigureDataApplication(_env, _config);
             app.ConfigureIdentityApplication(_env);
 
+            //Allow rewind
+            app.Use(next => context => { context.Request.EnableRewind(); return next(context); });
+
             app.UseMvc(routes =>
             {
+                //routes.MapRoute(
+                //    name: "error",
+                //    template: "{controller=Error}/{action=Error}/{id?}"
+                //);
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
+                    name: "cms",
+                    template: "{*url}",
+                    defaults: new { controller = "Content", action = "Index", url = UriComponents.AbsoluteUri }
+                );                
             });
         }
     }

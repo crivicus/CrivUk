@@ -1,0 +1,9 @@
+﻿@model CrivServer.CrivUk.Models.ContentViewModel
+@{
+    ViewData["Title"] = ViewBag.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.PageContent.content_h1</h1>
+
+@Html.Raw(Model.PageContent.main_content)
