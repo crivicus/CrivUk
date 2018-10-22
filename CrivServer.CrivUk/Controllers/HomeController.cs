@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Routing;
 namespace CrivServer.CrivUk.Controllers
 {
     [Authorize]
-    public class HomeController : ControllerHeart//, IRouteConstraint
+    public class HomeController : ControllerHeart
     {
         public HomeController(IConfiguration configuration, CrivDbContext context) : base(configuration, context) { }
 
@@ -38,8 +38,7 @@ namespace CrivServer.CrivUk.Controllers
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-            var model = _crivContext.Users.Select(x => new { userid = x.Id ,user = x.UserName, pass = x.PasswordHash });
-            var claims = _crivContext.UserClaims.Select(x=> new { uid = x.UserId, uclaim = x.ClaimValue, uctype = x.ClaimType});
+
             return View();
         }
 

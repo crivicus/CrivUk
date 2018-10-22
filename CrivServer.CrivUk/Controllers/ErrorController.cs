@@ -30,20 +30,5 @@ namespace CrivServer.CrivUk.Controllers
             }
             return View();
         }
-
-        public IActionResult Error(int? statusCode = null)
-        {
-            if (statusCode.HasValue)
-            {
-                if (statusCode.Value == 403 || statusCode.Value == 404 || statusCode.Value == 500)
-                {
-                    var viewName = statusCode.ToString();
-                    return View(viewName);
-                }
-                if (statusCode.Value == 401)
-                    return Redirect("/Identity/Account/Login");
-            }
-            return View();
-        }
     }
 }

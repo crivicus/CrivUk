@@ -87,10 +87,10 @@ namespace CrivServer.CrivUk
         {
             if (_env.IsDevelopment())
             {
-                app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
-                app.UseExceptionHandler("/error/{0}");
-                //app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
+                //app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
+                //app.UseExceptionHandler("/error/{0}");
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {

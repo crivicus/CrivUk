@@ -14,30 +14,6 @@ namespace CrivServer.CrivUk.Controllers
     public class ContentController : ControllerHeart//, IRouteConstraint
     {
         public ContentController(IConfiguration configuration, CrivDbContext context) : base(configuration, context) { }
-        // <summary>
-        // Check to see if the page is in the cms system return true if it is
-        // </summary>
-        //public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
-        //{
-        //    if (values.TryGetValue("url", out var uri))
-        //    {
-        //        if (uri != null && UriCheck(uri.ToString()))
-        //        {
-        //            if (CheckRedirect(uri.ToString(), out var reroute, out var redirectHidden))
-        //            {
-        //                RedirectToRoute(reroute);
-        //                return redirectHidden;
-        //            }
-        //            else if (AllowAnon(uri.ToString()).Equals(1))
-        //                RedirectToActionPermanent("OpenContentPage", "Home", uri);
-        //            else
-        //                RedirectToActionPermanent("ClosedContentPage", "Home", uri);
-
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
 
         public IActionResult Index(string[] url)
         {
