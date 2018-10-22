@@ -87,15 +87,16 @@ namespace CrivServer.CrivUk
         {
             if (_env.IsDevelopment())
             {
-                //app.UseExceptionHandler("/error/{0}");
                 app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
+                app.UseExceptionHandler("/error/{0}");
                 //app.UseDeveloperExceptionPage();
                 //app.UseDatabaseErrorPage();
             }
             else
             {
-                //app.UseExceptionHandler("/error/{0}");
-                app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");                
+                
+                app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
+                app.UseExceptionHandler("/error/{0}");
                 app.UseHsts();
             }
             // Use this code if you want the App_Data folder to be in wwwroot

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace CrivServer.Infrastructure.Extensions
 {
@@ -48,10 +49,12 @@ namespace CrivServer.Infrastructure.Extensions
                 NormalizedUserName = testuser.GetValue<string>("NormalizedUserName"),
                 NormalizedEmail = testuser.GetValue<string>("NormalizedEmail"),
                 PasswordHash = testuser.GetValue<string>("PasswordHash"),
-                UserType = testuser.GetValue<int>("UserType")
+                UserType = testuser.GetValue<int>("UserType"),
+                SecurityStamp = Guid.NewGuid().ToString()
             };
 
             context.ApplicationUsers.Add(user);
+            
 
             var page = new CrivServer.Data.Models.DbContentModel {
                 content_id = 1,

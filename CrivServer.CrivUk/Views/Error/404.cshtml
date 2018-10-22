@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    var originalUrl = ViewData["ErrorUrl"];
 }
 
 <!DOCTYPE html>
@@ -10,7 +11,7 @@
     <title>Error 404</title>
 </head>
 <body>
-    <h1>404</h1><h2>The page could not be found</h2> 
+    <h1>404</h1><h2>The page @originalUrl could not be found</h2> 
     <p>Check you have the correct url</p>
 </body>
 </html>
