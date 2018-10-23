@@ -93,8 +93,7 @@ namespace CrivServer.CrivUk
                 app.UseDatabaseErrorPage();
             }
             else
-            {
-                
+            {                
                 app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
                 app.UseExceptionHandler("/error/{0}");
                 app.UseHsts();

@@ -8,12 +8,13 @@ using CrivServer.Data.Contexts;
 using CrivServer.Infrastructure.ControllerHelpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace CrivServer.CrivUk.Controllers
 {
     public class ContentController : ControllerHeart//, IRouteConstraint
     {
-        public ContentController(IConfiguration configuration, CrivDbContext context) : base(configuration, context) { }
+        public ContentController(IConfiguration configuration, CrivDbContext context, ILoggerFactory logger) : base(configuration, context, logger) { }
 
         public IActionResult Index(string[] url)
         {

@@ -9,6 +9,6 @@ namespace CrivServer.Infrastructure.ModelHelpers
     {
         public DbContentModel PageContent { get; set; }
 
-        public DbContentModel GetContent() { return PageContent; }
+        public int SiteId { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace CrivServer.Infrastructure.Extensions
         {
             var testuser = _config.GetSection("TestUser");
             var user = new CrivServer.Data.Models.ApplicationUser {
+                Id = "1",
                 UserName = testuser.GetValue<string>("UserName"),
                 Email = testuser.GetValue<string>("Email"),
                 NormalizedUserName = testuser.GetValue<string>("NormalizedUserName"),
@@ -52,9 +53,13 @@ namespace CrivServer.Infrastructure.Extensions
                 UserType = testuser.GetValue<int>("UserType"),
                 SecurityStamp = Guid.NewGuid().ToString()
             };
-
             context.ApplicationUsers.Add(user);
-            
+
+            var role = new Microsoft.AspNetCore.Identity.IdentityRole() { Id = "1", Name = "Creator", NormalizedName="creator", ConcurrencyStamp = Guid.NewGuid().ToString() };
+            context.Roles.Add(role);
+
+            var userrole = new Microsoft.AspNetCore.Identity.IdentityUserRole<string>() { RoleId = "1", UserId = "1"};
+            context.UserRoles.Add(userrole);
 
             var page = new CrivServer.Data.Models.DbContentModel {
                 content_id = 1,
@@ -99,7 +104,7 @@ namespace CrivServer.Infrastructure.Extensions
             {
                 content_id = 3,
                 site_id = 1,
-                url = "test-3",
+                url = "about",
                 tab_title = "About page",
                 canonical = "",
                 page_title = "About page title",
@@ -115,6 +120,27 @@ namespace CrivServer.Infrastructure.Extensions
                 auth_level = 1
             };
             context.ContentModels.Add(aboutpage);
+
+            var creationpage = new CrivServer.Data.Models.DbContentModel
+            {
+                content_id = 4,
+                site_id = 1,
+                url = "creation",
+                tab_title = "creation page",
+                canonical = "",
+                page_title = "creation page title",
+                meta_description = "An creation page description",
+                content_h1 = "h1 creation page",
+                main_content = "A main content on the creation page",
+                additional_content = "Additional creation content",
+                layout = "",
+                published_date = new System.DateTime(),
+                content_type = 0,
+                status = 1,
+                redirect_url = "",
+                auth_level = 1
+            };
+            context.ContentModels.Add(creationpage);
             context.SaveChanges();
         }
     }

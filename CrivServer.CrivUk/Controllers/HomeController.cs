@@ -11,13 +11,14 @@ using Microsoft.Extensions.Configuration;
 using CrivServer.Data.Contexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
 
 namespace CrivServer.CrivUk.Controllers
 {
     [Authorize]
     public class HomeController : ControllerHeart
     {
-        public HomeController(IConfiguration configuration, CrivDbContext context) : base(configuration, context) { }
+        public HomeController(IConfiguration configuration, CrivDbContext context, ILoggerFactory logger) : base(configuration, context, logger) { }
 
         [AllowAnonymous]
         public IActionResult Index()
@@ -30,7 +31,8 @@ namespace CrivServer.CrivUk.Controllers
         {
             ViewData["Message"] = "Your application description page.";
             var model = new HomeViewModel();
-            model.PageContent = GetContent();
+            model.PageContent = GetContent("about");
+            SetViewBag(model.PageContent);
             return View(model);
         }
 

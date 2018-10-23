@@ -9,7 +9,7 @@ namespace CrivServer.Data.Models
     {
         [Key]
         public int content_id { get; set; }
-        public int? site_id { get; set; }
+        public int site_id { get; set; }
         public int? parent_id { get; set; }
         public string parent_url { get; set; }
         public string url { get; set; }

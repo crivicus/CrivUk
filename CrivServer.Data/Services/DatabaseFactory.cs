@@ -1,12 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using CrivServer.Data.Contexts;
+using System.Threading.Tasks;
 
 namespace CrivServer.Data.Services
 {
     public class DatabaseFactory: IDatabaseFactory
-    {        
-        public DatabaseFactory()
-        {
+    {
+        private readonly CrivDbContext _crivContext;
 
+        public DatabaseFactory(CrivDbContext crivContext)
+        {
+            _crivContext = crivContext;
         }
         public Task ConnectToDatabase(string connectionString)
         {

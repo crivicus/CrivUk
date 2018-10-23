@@ -1,0 +1,27 @@
+﻿@model CrivServer.CrivUk.Models.CreationViewModel
+@{
+    ViewData["Title"] = ViewBag.Title;
+    ViewData["MetaDescription"] = ViewBag.MetaDescription;
+    ViewData["Canonical"] = ViewBag.Canonical;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.PageContent.content_h1</h1>
+
+<div>
+    <ul>
+        @foreach (var cmspage in Model.CreationModelList)
+        {
+            <li>
+                <div class="">@cmspage.content_id</div>
+                <div class="">@cmspage.url</div>
+                <div class="">@cmspage.tab_title</div>
+                <div class="">@cmspage.page_title</div>
+                <div class="">@cmspage.auth_level</div>
+                <div class="">@cmspage.status</div>
+                <div class="">@cmspage.published_date</div>
+                <div class=""><button class="">Edit</button><button class="">Delete</button></div>
+            </li>
+        }
+    </ul>
+</div>
