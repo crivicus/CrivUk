@@ -1,4 +1,4 @@
-This is my dotnet core base implementation.
+This is my dotnet core personal site implementation.
 
 The idea is to create a webserver project that can be used to serve several sites while also acting as a base implementation for other programming ideas, features and tasks.
 
@@ -6,7 +6,7 @@ I am building it to be easy to pull down and test with anywhere while simultaneo
 
 At the core will be a Content management system that can serve multiple sites with authorization and encryption built in.
 
-This base will remain functional rather than styled so that it can be cloned and used as a base for other projects.
+This is my personal application of the base code used to build a site or set of sites of my own design and use.
 
 If you want to download the project to have a go yourself you will need an appsettings.json file with the following:
 
