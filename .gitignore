@@ -263,3 +263,4 @@ __pycache__/
 /CrivServer.CrivUk/hosting.json
 /CrivServer.CrivUk/App_Data/emails.txt
 /CrivServer.CrivUk/App_Data/Keys
+/CrivServer.CrivUk/appsettings-custom.json
