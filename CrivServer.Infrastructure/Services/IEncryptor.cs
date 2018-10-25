@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace CrivServer.Infrastructure.Services
 {
@@ -10,5 +11,6 @@ namespace CrivServer.Infrastructure.Services
         string ManualDecrypt(string cipherText, string password);
         Task FileEncrypt(string filename, string password);
         Task FileDecrypt(string filename, string password);
+        X509Certificate2 GenerateCertificate(string certName, string exportpassword);
     }
 }

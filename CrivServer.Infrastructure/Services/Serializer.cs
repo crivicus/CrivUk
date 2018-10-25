@@ -21,12 +21,28 @@ namespace CrivServer.Infrastructure.Services
 
         public string Serialize(object content)
         {
-            return JsonConvert.SerializeObject(content);
+            return JsonConvert.SerializeObject(content,Formatting.Indented);
         }
 
         public TOutput Deserialize<TOutput>(string content)
         {
             return JsonConvert.DeserializeObject<TOutput>(content);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // free managed resources
+                _json = null;
+            }
+            // free native resources if there are any.
         }
     }
 }

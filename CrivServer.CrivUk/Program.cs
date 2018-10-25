@@ -17,7 +17,8 @@ namespace CrivServer.CrivUk
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings-custom.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("hosting.json", optional: true)
                 .Build();
 

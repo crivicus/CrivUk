@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CrivServer.Infrastructure.Services
 {
-    public interface ISerializer
+    public interface ISerializer : IDisposable
     {
         string ContentType { get; }
         string Serialize(object content);

@@ -49,6 +49,7 @@ namespace CrivServer.Infrastructure.Extensions
                 Email = testuser.GetValue<string>("Email"),
                 NormalizedUserName = testuser.GetValue<string>("NormalizedUserName"),
                 NormalizedEmail = testuser.GetValue<string>("NormalizedEmail"),
+                PhoneNumber = testuser.GetValue<string>("PhoneNumber"),
                 PasswordHash = testuser.GetValue<string>("PasswordHash"),
                 UserType = testuser.GetValue<int>("UserType"),
                 SecurityStamp = Guid.NewGuid().ToString()

@@ -48,14 +48,13 @@ namespace CrivServer.CrivUk
                     options.MaxAge = TimeSpan.FromDays(30);
                 });                
             }
-            //var config1 = _config.EncryptConfiguration(_manualEncryptor);
-            var config = _config.DecryptConfiguration(_manualEncryptor);
-            services.AddSingleton(config);            
+            //Encrypt the appsettings on initial run
+            services.ConfigurationInjectionService(_config, _env, _manualEncryptor);     
             
             //Add the encryption/decryption service
-            services.ConfigureDataProtectionService(config, _env);
+            services.ConfigureDataProtectionService(_config, _env);
 
-            var checkConsentNeeded = config.GetValue<string>("CheckNotConsentNeeded");
+            var checkConsentNeeded = _config.GetValue<string>("CheckNotConsentNeeded");
             bool bConverted = bool.TryParse(checkConsentNeeded, out bool bcheckConsentNotNeeded);
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -68,11 +67,9 @@ namespace CrivServer.CrivUk
             });
 
             // Add database and identity services           
-            services.ConfigureDataService(config, _env);
+            services.ConfigureDataService(_config, _env);
             services.ConfigureIdentityService(_env);
-
-            // Add application services.            
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.ConfigureUtilityServices(_config, _env);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddRazorPagesOptions(options =>
             {
@@ -98,14 +95,7 @@ namespace CrivServer.CrivUk
                 app.UseExceptionHandler("/error/{0}");
                 app.UseHsts();
             }
-            // Use this code if you want the App_Data folder to be in wwwroot
-            //string baseDir = env.WebRootPath;
-
-            // Use this if you want App_Data off your project root folder
-            string baseDir = _env.ContentRootPath;
-            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.Combine(baseDir, "App_Data"));
-            //string dataDir = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-            
+                        
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -113,6 +103,7 @@ namespace CrivServer.CrivUk
             //Configure database and identity within the app
             app.ConfigureDataApplication(_env, _config);
             app.ConfigureIdentityApplication(_env);
+            app.ConfigureApplicationUtilities(_env, _config);
 
             //Allow rewind
             app.Use(next => context => { context.Request.EnableRewind(); return next(context); });

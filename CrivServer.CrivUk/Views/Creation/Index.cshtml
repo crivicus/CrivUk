@@ -20,7 +20,14 @@
                 <div class="">@cmspage.auth_level</div>
                 <div class="">@cmspage.status</div>
                 <div class="">@cmspage.published_date</div>
-                <div class=""><button class="">Edit</button><button class="">Delete</button></div>
+                <div class="">
+                    @Html.ActionLink("Edit", "Edit", "Creation", new { id = cmspage.content_id }, new { @class = "btn btn-default", @title = "Edit this" })
+                    @using (Html.BeginForm("Delete", "Creation", FormMethod.Post, new { @class = "" }))
+                    {
+                        <input type="hidden" name="id" value="@cmspage.content_id"/>
+                        <input type="submit" name="Submit" value="Delete" class="btn btn-default", title="Delete this"/>
+                    }
+                </div>
             </li>
         }
     </ul>

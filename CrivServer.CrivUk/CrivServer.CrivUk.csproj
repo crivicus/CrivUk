@@ -33,4 +33,8 @@
     <ProjectReference Include="..\CrivServer.Infrastructure\CrivServer.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\public_data\" />
+  </ItemGroup>
+
 </Project>

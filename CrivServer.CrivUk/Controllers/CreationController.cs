@@ -34,26 +34,23 @@ namespace CrivServer.CrivUk.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var model = new CreationViewModel();
-            model.CreationModel = new DbContentModel();
-            model.PageContent = GetContent("creation");
-            //Set viewbag items
-            SetViewBag(model.PageContent);
-
-            return View();
+            return View(ReCreateModel(new DbContentModel(), "creation"));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(DbContentModel model)
+        public async Task<IActionResult> Create(CreationViewModel createmodel)
         {
-            var toAdd = model;
+            var toAdd = createmodel.CreationModel;
             try
             {                
                 _crivContext.ContentModels.Add(toAdd);
                 await _crivContext.SaveChangesAsync();
             }
-            catch { return View(); }
-            return RedirectToAction("Edit", toAdd.content_id);
+            catch(Exception e) {
+                _logger.LogError(e, "Creation Create Error", toAdd);
+                return View(ReCreateModel(toAdd, "creation"));
+            }
+            return RedirectToAction("Edit", new { id = toAdd.content_id });
         }
         #endregion
 
@@ -61,26 +58,24 @@ namespace CrivServer.CrivUk.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = new CreationViewModel();
-            model.CreationModel = _crivContext.ContentModels.Find(id);
-            model.PageContent = GetContent("creation");
-            //Set viewbag items
-            SetViewBag(model.PageContent);
-
-            return View(model);
+            var editPage = _crivContext.ContentModels.Find(id);
+            return View(ReCreateModel(editPage, "creation"));
         }
         
         [HttpPost]
-        public async Task<IActionResult> EditAsync(DbContentModel model)
+        public async Task<IActionResult> Edit(CreationViewModel editmodel)
         {
-            var toEdit = model;
+            var toEdit = editmodel.CreationModel;
             try
             {
                 _crivContext.ContentModels.Update(toEdit);
                 await _crivContext.SaveChangesAsync();
             }
-            catch { return View(); }
-            return RedirectToAction("Edit", toEdit.content_id);
+            catch(Exception e) {
+                _logger.LogError(e, "Creation Edit Error", toEdit);
+                return View(ReCreateModel(toEdit, "creation"));
+            }
+            return RedirectToAction("Edit", new { id = toEdit.content_id});
         }
         #endregion
 
@@ -92,8 +87,17 @@ namespace CrivServer.CrivUk.Controllers
                 _crivContext.ContentModels.Remove(toDelete);
                 await _crivContext.SaveChangesAsync();
             }
-            catch { return View(); }
+            catch { return RedirectToAction("Index"); }
             return RedirectToAction("Index");
+        }
+
+        private CreationViewModel ReCreateModel(DbContentModel createmodel, string pagecontent) {
+            var model = new CreationViewModel();
+            model.CreationModel = createmodel;
+            model.PageContent = GetContent(pagecontent);
+            //Set viewbag items
+            SetViewBag(model.PageContent);
+            return model;
         }
     }
 }

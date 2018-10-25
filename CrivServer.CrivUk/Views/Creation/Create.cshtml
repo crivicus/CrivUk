@@ -7,4 +7,31 @@
 }
 
 <h1>@Model.PageContent.content_h1</h1>
-<div></div>
+<div>
+    @using (Html.BeginForm("Create", "Creation", FormMethod.Post, new { @class = "" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "" })
+        <div>@Html.EditorFor(x => x.CreationModel.content_id, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.site_id, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.parent_id, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.parent_url, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.url, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.tab_title, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.canonical, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.meta_description, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.page_title, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.content_h1, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.main_content, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.additional_content, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.layout, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.published_date, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.content_type, new { @class = "" })</div>
+        <div>@Html.DropDownListFor(x => x.CreationModel.status, Model.StatusTypeList, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.redirect_url, new { @class = "" })</div>
+        <div>@Html.EditorFor(x => x.CreationModel.auth_level, new { @class = "" })</div>
+        @Html.ActionLink("Back", "Index", "Creation", "", new { @class = "btn btn-default", @title = "Go back" })
+        <input type="submit" name="Submit" value="Save" />
+
+    }
+</div>
