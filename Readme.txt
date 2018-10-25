@@ -26,7 +26,7 @@ and an appsettings-custom.json with this in (for testing purposes Password of th
   "TestUser": {
     "UserName": "test@criv.uk",
     "Email": "test@criv.uk",
-	"PhoneNumber": "0000000000",
+    "PhoneNumber": "0000000000",
     "NormalizedUserName": "TEST@CRIV.UK",
     "NormalizedEmail": "TEST@CRIV.UK",
     "PasswordHash": "AQAAAAEAACcQAAAAEH42gxSffx6QDd0SiDfk4fHzyvzYxWM39N6THgmwZ384co4FXqPKM7ywXPodVBev9A==",
@@ -53,7 +53,7 @@ or in other words to personalise:
   "TestUser": {
     "UserName": "your-username",
     "Email": "your@email.com",
-	"PhoneNumber": "YOURNUMBER",
+    "PhoneNumber": "YOURNUMBER",
     "NormalizedUserName": "YOUR-USERNAME",
     "NormalizedEmail": "YOUR@EMAIL.COM",
     "PasswordHash": "ENCRYPTEDPASSWORDHASH",
