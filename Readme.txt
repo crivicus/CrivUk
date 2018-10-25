@@ -1,10 +1,12 @@
-This is a programmers dotnet core project.
+This is my dotnet core base implementation.
 
-The idea is to create a webserver project that can serve several sites while also acting as a testbed for programming ideas, features and tasks.
+The idea is to create a webserver project that can be used to serve several sites while also acting as a base implementation for other programming ideas, features and tasks.
 
 I am building it to be easy to pull down and test with anywhere while simultaneously allowing a variety of database types and server operating systems.
 
-At the core will be a Content management system that can serve multiple sites with authorization capabilities and encryption built in.
+At the core will be a Content management system that can serve multiple sites with authorization and encryption built in.
+
+This base will remain functional rather than styled so that it can be cloned and used as a base for other projects.
 
 If you want to download the project to have a go yourself you will need an appsettings.json file with the following:
 
