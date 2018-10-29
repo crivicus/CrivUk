@@ -45,7 +45,10 @@ namespace CrivServer.Infrastructure.Extensions
             //string dataDir = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
 
             AppDomain.CurrentDomain.SetData("PublicDirectory", System.IO.Path.Combine(webrootDir, "public_data"));
-            //string dataDir = AppDomain.CurrentDomain.GetData("public_data").ToString();
+            //string dataDir = AppDomain.CurrentDomain.GetData("PublicDirectory").ToString();
+
+            AppDomain.CurrentDomain.SetData("WebRoot", System.IO.Path.Combine(webrootDir));
+            //string dataDir = AppDomain.CurrentDomain.GetData("WebRoot").ToString();
 
             if (env.IsDevelopment())
             {

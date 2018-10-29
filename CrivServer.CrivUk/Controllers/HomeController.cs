@@ -23,9 +23,11 @@ namespace CrivServer.CrivUk.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+
             return View();
         }
 
+        [AllowAnonymous]
         [HttpGet("about")]
         public IActionResult About()
         {
@@ -36,6 +38,7 @@ namespace CrivServer.CrivUk.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpGet("contact")]
         public IActionResult Contact()
         {
@@ -48,7 +51,26 @@ namespace CrivServer.CrivUk.Controllers
         [HttpGet("privacy")]
         public IActionResult Privacy()
         {
+
             return View();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("random")]
+        public IActionResult Random()
+        {
+            var model = new HomeViewModel();
+            model.PageContent = GetContent("random");
+
+            var folder = System.IO.Path.Combine(AppDomain.CurrentDomain.GetData("WebRoot").ToString(), "images", "random").ToString();
+
+            string[] fileEntries = System.IO.Directory.GetFiles(folder);
+
+            model.image_url = Randomise(fileEntries).Replace(AppDomain.CurrentDomain.GetData("WebRoot").ToString(),"");
+            model.image_name = model.image_url.Split(System.IO.Path.DirectorySeparatorChar).Last().Split('.').First().Replace('_', ' ').Replace('-', ' ');
+
+            SetViewBag(model.PageContent);
+            return View(model);
         }
 
         [AllowAnonymous]

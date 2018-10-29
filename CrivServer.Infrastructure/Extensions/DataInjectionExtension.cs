@@ -81,6 +81,7 @@ namespace CrivServer.Infrastructure.Extensions
                 auth_level = null
             };
             context.ContentModels.Add(page);
+
             var page2 = new CrivServer.Data.Models.DbContentModel
             {
                 content_id = 2,
@@ -101,6 +102,7 @@ namespace CrivServer.Infrastructure.Extensions
                 auth_level = 0
             };
             context.ContentModels.Add(page2);
+
             var aboutpage = new CrivServer.Data.Models.DbContentModel
             {
                 content_id = 3,
@@ -142,6 +144,27 @@ namespace CrivServer.Infrastructure.Extensions
                 auth_level = 1
             };
             context.ContentModels.Add(creationpage);
+
+            var randompage = new CrivServer.Data.Models.DbContentModel
+            {
+                content_id = 5,
+                site_id = 1,
+                url = "random",
+                tab_title = "random page",
+                canonical = "",
+                page_title = "random page title",
+                meta_description = "An random page description",
+                content_h1 = "h1 random page",
+                main_content = "A main content on the random page",
+                additional_content = "Additional random content",
+                layout = "",
+                published_date = new System.DateTime(),
+                content_type = 0,
+                status = 1,
+                redirect_url = "",
+                auth_level = 1
+            };
+            context.ContentModels.Add(randompage);
             context.SaveChanges();
         }
     }

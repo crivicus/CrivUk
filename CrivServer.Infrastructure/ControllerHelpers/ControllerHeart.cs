@@ -64,5 +64,14 @@ namespace CrivServer.Infrastructure.ControllerHelpers
             ViewBag.Canonical = model.canonical;
             ViewBag.Title = model.tab_title;
         }
+
+        public string Randomise(IList<string> totalNumber)
+        {
+            if (totalNumber == null || !totalNumber.Any()) return null;
+
+            Random rnd = new Random();
+            var number = rnd.Next(0, totalNumber.Count);
+            return totalNumber.ElementAtOrDefault(number);
+        }
     }
 }

@@ -8,5 +8,7 @@ namespace CrivServer.CrivUk.Models
 {
     public class HomeViewModel:ModelHeart
     {
+        public string image_url { get; set; }
+        public string image_name { get; set; }
     }
 }

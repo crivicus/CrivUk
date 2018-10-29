@@ -1,0 +1,11 @@
+﻿@model CrivServer.CrivUk.Models.HomeViewModel
+@{
+    ViewData["Title"] = ViewBag.Title;
+    ViewData["MetaDescription"] = ViewBag.MetaDescription;
+    ViewData["Canonical"] = ViewBag.Canonical;
+}
+
+
+<img alt="@Model.image_name" src="@Model.image_url" />
+
+<p>@Model.image_name</p>
