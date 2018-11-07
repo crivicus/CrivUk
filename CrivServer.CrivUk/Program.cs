@@ -23,7 +23,7 @@ namespace CrivServer.CrivUk
                 .Build();
 
             var host = new WebHostBuilder()
-                .UseKestrel()
+                .UseKestrel(options=>options.Limits.MaxRequestBodySize = 52428800)
                 .UseConfiguration(config)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()

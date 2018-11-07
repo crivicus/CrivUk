@@ -21,7 +21,7 @@ namespace CrivServer.Infrastructure.Extensions
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "public_data")));
-
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
             if (env.IsDevelopment())
             {
                 

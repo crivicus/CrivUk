@@ -6,5 +6,9 @@ namespace CrivServer.Data.Models
     public class ApplicationUser : IdentityUser
     {
         public int UserType { get; set; }
+
+        public string UserFolder { get; set; }
+
+        public byte[] AvatarImage { get; set; }
     }
 }

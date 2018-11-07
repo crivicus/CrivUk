@@ -1,0 +1,69 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CrivServer.Data.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model CrivServer.CrivUk.Models.HomeViewModel
+@{
+    var userName = "";
+    if (SignInManager.IsSignedIn(User))
+    {
+        userName = UserManager.GetUserName(User);
+    }
+    else
+    {
+        userName = "Anon";
+    }
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="form-label-group">
+                <input type="text" id="userInput" placeholder="Username" value="@userName" />
+                <label for="userInput">Username</label>
+            </div>
+            <div class="form-label-group">
+                <input type="text" id="messageInput" placeholder="Message" />
+                <label for="messageInput">Message</label>
+            </div>
+            <input type="button" id="sendButton" value="Send Message" />
+            <input type="button" id="streamButton" value="Start Streaming" />
+        </div>
+        <div class="col">
+            <ul id="messagesList"></ul>
+        </div>
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <video width="480" height="320" controls="controls" autoplay="autoplay">
+            <source src="/api/file/get-video/mp4/small" type="video/mp4">
+        </video>
+        <form method="post" enctype="multipart/form-data" asp-controller="FileTransfer" asp-action="UploadSmallFiles">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p>Upload one or more files using this form:</p>
+                    <input type="file" name="files" multiple />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Upload" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/stream.js"></script>
+}
+@section Styles{
+    <link href="~/css/floating-labels.css" rel="stylesheet">
+}

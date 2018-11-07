@@ -52,6 +52,7 @@ namespace CrivServer.Infrastructure.Extensions
                 PhoneNumber = testuser.GetValue<string>("PhoneNumber"),
                 PasswordHash = testuser.GetValue<string>("PasswordHash"),
                 UserType = testuser.GetValue<int>("UserType"),
+                UserFolder = Guid.NewGuid().ToString(),
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             context.ApplicationUsers.Add(user);

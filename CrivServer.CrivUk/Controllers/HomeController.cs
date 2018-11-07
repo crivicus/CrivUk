@@ -32,6 +32,7 @@ namespace CrivServer.CrivUk.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
+            ViewData["Title"] = "About";
             var model = new HomeViewModel();
             model.PageContent = GetContent("about");
             SetViewBag(model.PageContent);
@@ -43,7 +44,7 @@ namespace CrivServer.CrivUk.Controllers
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
+            ViewData["Title"] = "Contact";
             return View();
         }
 
@@ -51,7 +52,16 @@ namespace CrivServer.CrivUk.Controllers
         [HttpGet("privacy")]
         public IActionResult Privacy()
         {
+            ViewData["Title"] = "Privacy Policy";
+            return View();
+        }
 
+        [AllowAnonymous]
+        [HttpGet("chat")]
+        public IActionResult ChatPage()
+        {
+            ViewData["Message"] = "Your chat page.";
+            ViewData["Title"] = "Have a chat";
             return View();
         }
 

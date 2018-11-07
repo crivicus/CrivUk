@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <Folder Include="App_Data\Keys\" />
-    <Folder Include="wwwroot\public_data\" />
+    <Folder Include="wwwroot\public_data\videos\" />
   </ItemGroup>
 
 </Project>

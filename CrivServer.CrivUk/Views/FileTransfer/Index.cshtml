@@ -1,0 +1,40 @@
+﻿@model CrivServer.CrivUk.Models.FileModel
+@{
+    ViewData["Title"] = "Upload files";
+    //Layout = "";
+}
+
+<h2>Upload your files</h2>
+<div ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <ul>
+            <li id="errorMessages" class="error" data-ng-repeat="e in errors">
+                {{e}}
+            </li>
+        </ul>
+        <div>
+            <div>
+                <label for="toUpload">File to Upload</label>
+                <div>
+                    <input name="toUpload" type="file" file-model="toUpload" />
+                </div>
+            </div>
+            <br />
+            <div>
+                <button ng-click="createFile()">Create File</button>
+            </div>
+            <br />
+            <div ng-show="showUploadStatus">
+                <b><span ng-bind="uploadStatus"></span></b>
+            </div>
+            <div ng-show="showUploadedData">
+                <b>File:</b> <span ng-bind="uploadedData.filePath"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="~/js/upload.js"></script>
+}

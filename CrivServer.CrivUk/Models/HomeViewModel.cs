@@ -1,4 +1,5 @@
 ﻿using CrivServer.Infrastructure.ModelHelpers;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace CrivServer.CrivUk.Models
     {
         public string image_url { get; set; }
         public string image_name { get; set; }
+
+        public List<IFormFile> files { get; set; }
     }
 }

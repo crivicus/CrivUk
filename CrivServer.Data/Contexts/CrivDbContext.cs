@@ -27,6 +27,8 @@ namespace CrivServer.Data.Contexts
                 entity.ToTable(name: "AspNetUser", schema: "crivdb");
                 entity.Property(e => e.Id).HasColumnName("AspNetUserId");
                 entity.Property(e => e.UserType).HasColumnName("UserType");
+                entity.Property(e => e.UserFolder).HasColumnName("UserFolder");
+                entity.Property(e => e.AvatarImage).HasColumnName("AvatarImage");
             });
 
             builder.Entity<DbContentModel>(entity =>

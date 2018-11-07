@@ -8,25 +8,31 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-signin">
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
+            <div class="form-label-group">
+                <input type="email" asp-for="Input.Email" class="form-control" placeholder="Email address" required autofocus />
+                <label asp-for="Input.Email">Email address</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
+            <div class="form-label-group">
+                <input type="password" asp-for="Input.Password" class="form-control" placeholder="Password" required />
+                <label asp-for="Input.Password">Password</label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
+            <div class="form-label-group">
+                <input type="password" asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password" required />
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="form-label-group">
+                <input type="file" asp-for="Input.AvatarImage" />
+                <label asp-for="Input.AvatarImage">Confirm Password</label>
+                <span asp-validation-for="Input.AvatarImage" class="text-danger"></span>
+            </div>
+            
             <button type="submit" class="btn btn-default">Register</button>
         </form>
     </div>
@@ -34,4 +40,8 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles{
+    <link href="~/css/floating-labels.css" rel="stylesheet">
 }

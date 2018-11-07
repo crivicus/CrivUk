@@ -264,3 +264,4 @@ __pycache__/
 /CrivServer.CrivUk/App_Data/emails.txt
 /CrivServer.CrivUk/App_Data/Keys
 /CrivServer.CrivUk/appsettings-custom.json
+/CrivServer.CrivUk/wwwroot/public_data/videos

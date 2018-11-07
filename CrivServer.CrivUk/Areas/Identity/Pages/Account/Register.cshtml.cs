@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace CrivServer.CrivUk.Areas.Identity.Pages.Account
 {
@@ -55,6 +57,10 @@ namespace CrivServer.CrivUk.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [DataType(DataType.Upload)]
+            [Display(Name = "Upload an Avatar")]
+            public IFormFile AvatarImage { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -67,7 +73,17 @@ namespace CrivServer.CrivUk.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser {
+                    UserType = 1,
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    UserFolder = Guid.NewGuid().ToString()
+                };
+                using (var memoryStream = new MemoryStream())
+                {
+                    await Input.AvatarImage.CopyToAsync(memoryStream);
+                    user.AvatarImage = memoryStream.ToArray();
+                }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

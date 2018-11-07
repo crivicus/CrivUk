@@ -60,9 +60,10 @@ namespace CrivServer.Infrastructure.ControllerHelpers
 
         public void SetViewBag(DbContentModel model)
         {
-            ViewBag.MetaDescription = model.meta_description;
-            ViewBag.Canonical = model.canonical;
-            ViewBag.Title = model.tab_title;
+            ViewData["Author"] = "C. Rivett";
+            ViewData["MetaDescription"] = model.meta_description;
+            ViewData["Canonical"] = model.canonical;
+            ViewData["Title"] = model.tab_title;
         }
 
         public string Randomise(IList<string> totalNumber)

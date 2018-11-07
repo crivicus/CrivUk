@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CrivServer.Data.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{ 
+    var UserName = "User";
+    var SignInDisabled = "disabled";
+    if (SignInManager.IsSignedIn(User))
+    {
+        SignInDisabled = "";
+        UserName = UserManager.GetUserName(User);
+    }
+}
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="/"><img src="" alt="criv.uk" /></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#NavMenu" aria-controls="NavMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="NavMenu">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="https://criv.uk" id="primarynavdrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">criv</a>
+                <div class="dropdown-menu" aria-labelledby="primarynavdrop">
+                    <a class="dropdown-item" href="cooks">cooks</a>
+                    <a class="dropdown-item" href="codes">codes</a>
+                    <a class="dropdown-item" href="cycles">cycles</a>
+                    <a class="dropdown-item" href="culture">culture</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about">about</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact">contact</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="@string.Format("nav-link dropdown-toggle {0}", SignInDisabled).Trim()" href="https://criv.uk" id="secondarynavdrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@UserName</a>
+                <div class="dropdown-menu" aria-labelledby="secondarynavdrop">
+                    <a class="dropdown-item" href="random">random</a>
+                    <a class="dropdown-item" href="ai">ai</a>
+                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutFormNavB" class="navbar-right">
+                        <button type="submit" class="dropdown-item btn">logout</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+        <partial name="_LoginPartial" />
+    </div>
+</nav>

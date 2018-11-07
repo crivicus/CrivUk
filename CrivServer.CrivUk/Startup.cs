@@ -8,9 +8,7 @@ using CrivServer.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 using CrivServer.Infrastructure.Extensions;
 using System;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Http.Internal;
-using CrivServer.Data.Contexts;
 
 namespace CrivServer.CrivUk
 {
@@ -77,6 +75,9 @@ namespace CrivServer.CrivUk
                 options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
                 options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
             });
+
+            services.AddSignalR();
+            services.AddSingleton<Microsoft.AspNetCore.SignalR.IUserIdProvider, Infrastructure.Hubs.CustomUserIdProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,12 +109,14 @@ namespace CrivServer.CrivUk
             //Allow rewind
             app.Use(next => context => { context.Request.EnableRewind(); return next(context); });
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<Infrastructure.Hubs.ChatHub>("/chatHub");
+                routes.MapHub<Infrastructure.Hubs.StreamHub>("/streamHub");
+            });
+
             app.UseMvc(routes =>
             {
-                //routes.MapRoute(
-                //    name: "error",
-                //    template: "{controller=Error}/{action=Error}/{id?}"
-                //);
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}"
