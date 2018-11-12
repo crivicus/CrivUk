@@ -8,22 +8,21 @@
 
 @if (showBanner)
 {
-    <nav id="cookieConsent" class="navbar navbar-default navbar-fixed-top" role="alert">
-        <div class="container">
+    <nav id="cookieConsent" class="navbar navbar-dark fixed-bottom bg-dark" role="alert">
+        <div class="container-fluid d-flex justify-content-between">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#cookieConsent .navbar-collapse">
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#cookieConsent .collapse">
                     <span class="sr-only">Toggle cookie consent banner</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <span class="navbar-brand"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></span>
+                <span class="navbar-brand">Cookie Policy</span>
             </div>
-            <div class="collapse navbar-collapse">
-                <p class="navbar-text">
-                    Use this space to summarize your privacy and cookie use policy.
-                </p>
-                <div class="navbar-right">
+            <div class="collapse">
+                <div class="navbar-text col-10">
+                    This site uses cookies, it can't be helped and I'm required to tell you about them. 
+                    They aren't doing anything different to those on other sites so you know the drill, click Learn More if you want to read about them or click Accept to make this go away.
+                </div>
+                <div class="navbar-text col-md-auto float-right">
                     <a asp-controller="Home" asp-action="Privacy" class="btn btn-info navbar-btn">Learn More</a>
                     <button type="button" class="btn btn-default navbar-btn" data-cookie-string="@cookieString">Accept</button>
                 </div>
@@ -34,7 +33,7 @@
         (function () {
             document.querySelector("#cookieConsent button[data-cookie-string]").addEventListener("click", function (el) {
                 document.cookie = el.target.dataset.cookieString;
-                document.querySelector("#cookieConsent").classList.add("hidden");
+                document.querySelector("#cookieConsent").classList.add("d-none");
             }, false);
         })();
     </script>

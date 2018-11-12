@@ -7,13 +7,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using Microsoft.AspNetCore.StaticFiles;
 using System.Threading.Tasks;
 
 namespace CrivServer.Infrastructure.Services
 {
     public class FileService:IFileService
     {
+        private static readonly IList<char> invalidFileNameChars = Path.GetInvalidFileNameChars();
         private static IHostingEnvironment _env;
         private static IConfiguration _config;
         private static IEncryptor _encryptor;
@@ -62,6 +63,22 @@ namespace CrivServer.Infrastructure.Services
             await File.WriteAllBytesAsync(path, toSave);            
         }
 
+        public Task CopyFile(string newLocation, string filename, string filetype, string currentPath)
+        {
+            var typeProv = new FileExtensionContentTypeProvider();
+            var type = typeProv.Mappings.FirstOrDefault(x=>x.Value.Equals(filetype)).Key.ToString();
+            var path = Path.Combine(AppDomain.CurrentDomain.GetData("PublicDirectory").ToString(), newLocation, filename, type).ToString();
+            var dirPath = Path.Combine(AppDomain.CurrentDomain.GetData("PublicDirectory").ToString(), newLocation);
+
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            
+            File.Copy(currentPath, path);
+            return Task.CompletedTask;
+        }
+
         public async Task SaveFiles(List<IFormFile> files, string folderName)
         {
             long size = files.Sum(f => f.Length);
@@ -75,8 +92,13 @@ namespace CrivServer.Infrastructure.Services
                 {
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        await formFile.CopyToAsync(stream);
+                        await formFile.CopyToAsync(stream);                        
                     }
+                    var type = formFile.ContentType;
+                    //clean the filename and avoid conflicts
+                    var name = new string(formFile.FileName.Select(ch => invalidFileNameChars.Contains(ch) ? Convert.ToChar(invalidFileNameChars.IndexOf(ch) + 65) : ch).ToArray());
+
+                    await CopyFile(folderName, name, type, filePath.ToString());
                 }
             }
 

@@ -115,7 +115,7 @@ namespace CrivServer.CrivUk.Controllers
                 MediaTypeHeaderValue.Parse(Request.ContentType),
                 _defaultFormOptions.MultipartBoundaryLengthLimit);
             var reader = new MultipartReader(boundary, HttpContext.Request.Body);
-
+            
             var section = await reader.ReadNextSectionAsync();
             while (section != null)
             {
@@ -190,8 +190,16 @@ namespace CrivServer.CrivUk.Controllers
             }
 
             var uploadedData = targetFilePath;// ToDo: safely save to a non temporary location
+            
+            var user = await _userManager.GetUserAsync(User);
+            var userFolder = !string.IsNullOrWhiteSpace(user.UserFolder) ? user.UserFolder : "anon";
+            var path = Path.Combine(AppDomain.CurrentDomain.GetData("PublicDirectory").ToString(), userFolder).ToString();
+            using (var fs = new FileService(_crivConfig,_encryptor,_environment))
+            {
+                await fs.CopyFile(path, new Guid().ToString(), uploadedData, uploadedData);
+            }
 
-            return Json(uploadedData);
+                return Json(uploadedData);
         }
         #endregion
 

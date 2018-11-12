@@ -26,8 +26,26 @@ a:hover, .btn-link:hover {
     color:unset;
 }
 
+.form-control {
+    height: calc(3rem + 2px);
+}
 
+.content-lock {
+    position: relative;
+    cursor: inherit;
+}
+.content-lock:before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index:10090;
+}
+    .content-lock video::-webkit-media-controls-panel{
+        z-index: 10099;
+    }
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-    
 }

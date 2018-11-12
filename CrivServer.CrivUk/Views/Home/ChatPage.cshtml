@@ -39,9 +39,11 @@
         </div>
     </div>
     <div class="row">
-        <video width="480" height="320" controls="controls" autoplay="autoplay">
-            <source src="/api/file/get-video/mp4/small" type="video/mp4">
-        </video>
+        <a href="/content-lock" class="content-lock">
+            <video width="480" height="320" controls="controls" autoplay="autoplay">
+                <source src="/api/file/get-video/mp4/small" type="video/mp4">
+            </video>
+        </a>
         <form method="post" enctype="multipart/form-data" asp-controller="FileTransfer" asp-action="UploadSmallFiles">
             <div class="form-group">
                 <div class="col-md-10">
