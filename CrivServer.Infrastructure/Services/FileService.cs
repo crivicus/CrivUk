@@ -59,15 +59,16 @@ namespace CrivServer.Infrastructure.Services
         /// </summary>
         public async Task SaveFile(string location, string filename, string filetype, byte[] toSave)
         {
-            var path = Path.Combine(AppDomain.CurrentDomain.GetData("PublicDirectory").ToString(), location, filename + "." + filetype).ToString();
+            var path = Path.Combine(AppDomain.CurrentDomain.GetData("PublicDirectory").ToString(), location, filename).ToString() + filetype;
             await File.WriteAllBytesAsync(path, toSave);            
         }
 
         public Task CopyFile(string newLocation, string filename, string filetype, string currentPath)
         {
             var typeProv = new FileExtensionContentTypeProvider();
+
             var type = typeProv.Mappings.FirstOrDefault(x=>x.Value.Equals(filetype)).Key.ToString();
-            var path = Path.Combine(AppDomain.CurrentDomain.GetData("PublicDirectory").ToString(), newLocation, filename, type).ToString();
+            var path = Path.Combine(AppDomain.CurrentDomain.GetData("PublicDirectory").ToString(), newLocation, filename).ToString() + type;
             var dirPath = Path.Combine(AppDomain.CurrentDomain.GetData("PublicDirectory").ToString(), newLocation);
 
             if (!Directory.Exists(dirPath))

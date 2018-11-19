@@ -16,8 +16,15 @@ namespace CrivServer.Infrastructure.Extensions
     {
         public static IServiceCollection ConfigureUtilityServices(this IServiceCollection services, IConfiguration config, IHostingEnvironment env)
         {
-            // Add application services.            
-            services.AddTransient<IEmailSender, EmailSender>();
+            // Add application services.     
+            var messageSender = config.GetSection("AuthMessageSenderOptions");
+            services.AddEmailSenderService(opts => new AuthMessageSenderOptions() {
+                DefaultSenderAddress = messageSender.GetValue<string>("DefaultSenderAddress"),
+                SenderClient = messageSender.GetValue<string>("SenderClient"),
+                SenderUser = messageSender.GetValue<string>("SenderUser"),
+                SenderKey = messageSender.GetValue<string>("SenderKey")
+            });
+
             services.AddSingleton<IFileProvider>(
                 new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "public_data")));
