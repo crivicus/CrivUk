@@ -2,7 +2,7 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Blazy code - for image lazy loading
-; (function () {
+(function () {
     // Initialize
     var bLazy = new Blazy({
         breakpoints: [{

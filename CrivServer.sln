@@ -22,7 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrivServer.Data", "CrivServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrivServer.Infrastructure", "CrivServer.Infrastructure\CrivServer.Infrastructure.csproj", "{BC77EC3D-3E0E-428D-8E1D-3B8C1F425BB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrivServer.File", "CrivServer.File\CrivServer.File.csproj", "{00D88CA5-D3FC-4BAF-A6B7-72EFE8EA4F4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrivServer.File", "CrivServer.File\CrivServer.File.csproj", "{00D88CA5-D3FC-4BAF-A6B7-72EFE8EA4F4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrivServer.AI", "CrivServerAI\CrivServer.AI.csproj", "{A71D7F20-C243-4802-82A5-215C52B8E602}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{00D88CA5-D3FC-4BAF-A6B7-72EFE8EA4F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00D88CA5-D3FC-4BAF-A6B7-72EFE8EA4F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00D88CA5-D3FC-4BAF-A6B7-72EFE8EA4F4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A71D7F20-C243-4802-82A5-215C52B8E602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A71D7F20-C243-4802-82A5-215C52B8E602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A71D7F20-C243-4802-82A5-215C52B8E602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A71D7F20-C243-4802-82A5-215C52B8E602}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{BE9DF01E-AC0F-4A60-8008-3763C70300AC} = {3677BC1C-C247-48D8-AAE5-79C84BE125D9}
 		{BC77EC3D-3E0E-428D-8E1D-3B8C1F425BB4} = {739084A5-5D42-41B3-9970-244E3D0C3855}
 		{00D88CA5-D3FC-4BAF-A6B7-72EFE8EA4F4F} = {3677BC1C-C247-48D8-AAE5-79C84BE125D9}
+		{A71D7F20-C243-4802-82A5-215C52B8E602} = {739084A5-5D42-41B3-9970-244E3D0C3855}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B2B5BA78-3EBA-4FD0-A37E-541B6F8A77DC}
