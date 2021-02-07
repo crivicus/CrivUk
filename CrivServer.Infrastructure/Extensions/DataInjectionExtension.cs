@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 
 namespace CrivServer.Infrastructure.Extensions
 {
     public static class InjectionExtension
     {
-        public static IServiceCollection ConfigureDataService(this IServiceCollection services, IConfiguration _config, IHostingEnvironment env)
+        public static IServiceCollection ConfigureDataService(this IServiceCollection services, IConfiguration _config, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -20,12 +21,12 @@ namespace CrivServer.Infrastructure.Extensions
             {
                 var connectionString = _config.GetConnectionString("DefaultConnection");
                 services.AddDbContext<CrivDbContext>(options =>
-                    options.UseMySql(connectionString));
+                    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
             }
             return services;
         }
 
-        public static IApplicationBuilder ConfigureDataApplication(this IApplicationBuilder app, IHostingEnvironment env, IConfiguration _config)
+        public static IApplicationBuilder ConfigureDataApplication(this IApplicationBuilder app, IHostEnvironment env, IConfiguration _config)
         {
             if (env.IsDevelopment())
             {

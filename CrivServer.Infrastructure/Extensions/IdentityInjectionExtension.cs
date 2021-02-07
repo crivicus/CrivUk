@@ -3,14 +3,16 @@ using CrivServer.Data.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 
 namespace CrivServer.Infrastructure.Extensions
 {
     public static class IdentityInjectionExtension
     {
-        public static IServiceCollection ConfigureIdentityService(this IServiceCollection services, IHostingEnvironment env)
+        public static IServiceCollection ConfigureIdentityService(this IServiceCollection services, IHostEnvironment env)
         {         
             if (env.IsDevelopment())
             {
@@ -64,7 +66,7 @@ namespace CrivServer.Infrastructure.Extensions
             return services;
         }
 
-        public static IApplicationBuilder ConfigureIdentityApplication(this IApplicationBuilder app, IHostingEnvironment env)
+        public static IApplicationBuilder ConfigureIdentityApplication(this IApplicationBuilder app, IHostEnvironment env)
         {
             app.UseAuthentication();
             if (env.IsDevelopment())
