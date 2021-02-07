@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="..\CrivServer.Data\CrivServer.Data.csproj" />
     <ProjectReference Include="..\CrivServer.Infrastructure\CrivServer.Infrastructure.csproj" />
   </ItemGroup>

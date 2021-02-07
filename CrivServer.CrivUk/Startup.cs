@@ -33,6 +33,7 @@ namespace CrivServer.CrivUk
         public void ConfigureServices(IServiceCollection services)
         {
             var logger = _loggerFactory.CreateLogger<Startup>();
+            services.AddDatabaseDeveloperPageExceptionFilter();
             if (_env.IsDevelopment())
             {
                 // Development service configuration
@@ -89,7 +90,7 @@ namespace CrivServer.CrivUk
                 //app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
                 //app.UseExceptionHandler("/error/{0}");
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {                
@@ -114,19 +115,15 @@ namespace CrivServer.CrivUk
             {
                 routes.MapHub<Infrastructure.Hubs.ChatHub>("/chatHub");
                 routes.MapHub<Infrastructure.Hubs.StreamHub>("/streamHub");
-            });
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
+                routes.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
                 );
-                routes.MapRoute(
+                routes.MapControllerRoute(
                     name: "cms",
-                    template: "{*url}",
+                    pattern: "{*url}",
                     defaults: new { controller = "Content", action = "Index", url = UriComponents.AbsoluteUri }
-                );                
+                );
             });
         }
     }
