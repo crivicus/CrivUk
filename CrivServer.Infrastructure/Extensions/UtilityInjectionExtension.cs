@@ -1,10 +1,10 @@
 ﻿using CrivServer.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ namespace CrivServer.Infrastructure.Extensions
 {
     public static class UtilityInjectionExtension
     {
-        public static IServiceCollection ConfigureUtilityServices(this IServiceCollection services, IConfiguration config, IHostingEnvironment env)
+        public static IServiceCollection ConfigureUtilityServices(this IServiceCollection services, IConfiguration config, IHostEnvironment env)
         {
             // Add application services.     
             var messageSender = config.GetSection("AuthMessageSenderOptions");
@@ -40,7 +40,7 @@ namespace CrivServer.Infrastructure.Extensions
             return services;
         }
 
-        public static IApplicationBuilder ConfigureApplicationUtilities(this IApplicationBuilder app, IHostingEnvironment env, IConfiguration _config)
+        public static IApplicationBuilder ConfigureApplicationUtilities(this IApplicationBuilder app, IWebHostEnvironment env, IConfiguration _config)
         {
             // Use this code if you want the App_Data folder to be in wwwroot
             string webrootDir = env.WebRootPath;

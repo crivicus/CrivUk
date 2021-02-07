@@ -1,4 +1,4 @@
-This is my dotnet core personal site implementation.
+This is my dotnet 5 personal site implementation.
 
 The idea is to create a webserver project that can be used to serve several sites while also acting as a base implementation for other programming ideas, features and tasks.
 

@@ -8,20 +8,22 @@ using CrivServer.Infrastructure.Services;
 using Microsoft.Extensions.Logging;
 using CrivServer.Infrastructure.Extensions;
 using System;
-using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.Extensions.Hosting;
 
 namespace CrivServer.CrivUk
 {
     public class Startup
     {
-        private readonly IHostingEnvironment _env;
+        private readonly IHostEnvironment _env;
+        private readonly IWebHostEnvironment _env2;
         private readonly IConfiguration _config;        
         private readonly ILoggerFactory _loggerFactory;
         private readonly IEncryptor _manualEncryptor;
 
-        public Startup(IHostingEnvironment environment, IConfiguration configuration, ILoggerFactory loggerFactory)
+        public Startup(IHostEnvironment environment, IWebHostEnvironment webenvironment, IConfiguration configuration, ILoggerFactory loggerFactory)
         {
             _env = environment;
+            _env2 = webenvironment;
             _config = configuration;
             _loggerFactory = loggerFactory;
             _manualEncryptor = new Encryptor(_config.GetValue<string>("Protector"));
@@ -69,9 +71,8 @@ namespace CrivServer.CrivUk
             services.ConfigureIdentityService(_env);
             services.ConfigureUtilityServices(_config, _env);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddRazorPagesOptions(options =>
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest).AddRazorPagesOptions(options =>
             {
-                options.AllowAreas = true;
                 options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
                 options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
             });
@@ -104,12 +105,12 @@ namespace CrivServer.CrivUk
             //Configure database and identity within the app
             app.ConfigureDataApplication(_env, _config);
             app.ConfigureIdentityApplication(_env);
-            app.ConfigureApplicationUtilities(_env, _config);
+            app.ConfigureApplicationUtilities(_env2, _config);
 
             //Allow rewind
-            app.Use(next => context => { context.Request.EnableRewind(); return next(context); });
+            app.Use(next => context => { context.Request.EnableBuffering(); return next(context); });
 
-            app.UseSignalR(routes =>
+            app.UseEndpoints(routes =>
             {
                 routes.MapHub<Infrastructure.Hubs.ChatHub>("/chatHub");
                 routes.MapHub<Infrastructure.Hubs.StreamHub>("/streamHub");

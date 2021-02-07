@@ -3,14 +3,14 @@ using CrivServer.Infrastructure.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 
 namespace CrivServer.Infrastructure.Extensions
 {
     public static class ConfigurationInjectionExtension
     {
-        public static IServiceCollection ConfigurationInjectionService(this IServiceCollection services, IConfiguration config, IHostingEnvironment env, IEncryptor manualEncryptor)
+        public static IServiceCollection ConfigurationInjectionService(this IServiceCollection services, IConfiguration config, IHostEnvironment env, IEncryptor manualEncryptor)
         {
             if (config.GetSection("InitialConfig").Value.Equals("true"))
             {
@@ -25,7 +25,7 @@ namespace CrivServer.Infrastructure.Extensions
             return services;
         }
 
-        public static IConfiguration DecryptConfiguration(this IConfiguration config, IHostingEnvironment env, IEncryptor encryptor)
+        public static IConfiguration DecryptConfiguration(this IConfiguration config, IHostEnvironment env, IEncryptor encryptor)
         {
             config.GetSection("ConnectionStrings").GetSection("DefaultConnection").Value = encryptor.Decrypt(config.GetSection("ConnectionStrings").GetValue<string>("DefaultConnection"));
             config.GetSection("PrimaryCertificate").GetSection("password").Value = encryptor.Decrypt(config.GetSection("PrimaryCertificate").GetValue<string>("password"));
@@ -44,7 +44,7 @@ namespace CrivServer.Infrastructure.Extensions
             return config;
         }
 
-        public static IConfiguration EncryptConfiguration(this IConfiguration config, IHostingEnvironment env, IEncryptor encryptor)
+        public static IConfiguration EncryptConfiguration(this IConfiguration config, IHostEnvironment env, IEncryptor encryptor)
         {
             config.GetSection("ConnectionStrings").GetSection("DefaultConnection").Value = encryptor.Encrypt(config.GetSection("ConnectionStrings").GetValue<string>("DefaultConnection"));
             config.GetSection("PrimaryCertificate").GetSection("password").Value = encryptor.Encrypt(config.GetSection("PrimaryCertificate").GetValue<string>("password"));
@@ -55,7 +55,7 @@ namespace CrivServer.Infrastructure.Extensions
             return config;
         }
 
-        public static IConfiguration InitialEncrypt(this IConfiguration config, IEncryptor encryptor, IHostingEnvironment env)
+        public static IConfiguration InitialEncrypt(this IConfiguration config, IEncryptor encryptor, IHostEnvironment env)
         {
             using (var fileprovider = new FileService(config, encryptor, env))
             {

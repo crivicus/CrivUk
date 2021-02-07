@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
@@ -11,7 +12,7 @@ namespace CrivServer.Infrastructure.Extensions
 {
     public static class DataProtectionExtension
     {
-        public static IServiceCollection ConfigureDataProtectionService(this IServiceCollection services, IConfiguration config, IHostingEnvironment env)
+        public static IServiceCollection ConfigureDataProtectionService(this IServiceCollection services, IConfiguration config, IHostEnvironment env)
         {
             var mainCertificate = config.GetSection("PrimaryCertificate");
             var secondaryCertificate = config.GetSection("BackupCertificate");

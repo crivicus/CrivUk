@@ -9,18 +9,19 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.StaticFiles;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace CrivServer.Infrastructure.Services
 {
     public class FileService:IFileService
     {
         private static readonly IList<char> invalidFileNameChars = Path.GetInvalidFileNameChars();
-        private static IHostingEnvironment _env;
+        private static IHostEnvironment _env;
         private static IConfiguration _config;
         private static IEncryptor _encryptor;
         private static IDataProtector _protector;
-        public FileService(IConfiguration config, IEncryptor encryptor, IHostingEnvironment env) { _env = env; _config = config; _encryptor = encryptor; }
-        public FileService(IConfiguration config, IDataProtectionProvider provider, IHostingEnvironment env) { _env = env; _config = config; _protector = provider.CreateProtector(_config.GetValue<string>("Protector")); }
+        public FileService(IConfiguration config, IEncryptor encryptor, IHostEnvironment env) { _env = env; _config = config; _encryptor = encryptor; }
+        public FileService(IConfiguration config, IDataProtectionProvider provider, IHostEnvironment env) { _env = env; _config = config; _protector = provider.CreateProtector(_config.GetValue<string>("Protector")); }
 
         /// <summary>
         /// Unsafe ReadFile for use with initial encryption
