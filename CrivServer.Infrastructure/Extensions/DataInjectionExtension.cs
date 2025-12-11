@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 using System;
 
 namespace CrivServer.Infrastructure.Extensions
@@ -21,7 +22,7 @@ namespace CrivServer.Infrastructure.Extensions
             {
                 var connectionString = _config.GetConnectionString("DefaultConnection");
                 services.AddDbContext<CrivDbContext>(options =>
-                    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+                    options.UseNpgsql(connectionString));
             }
             return services;
         }

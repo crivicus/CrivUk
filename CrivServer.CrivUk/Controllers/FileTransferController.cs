@@ -31,11 +31,11 @@ namespace CrivServer.CrivUk.Controllers
     public class FileTransferController : ControllerHeart
     {
         private readonly IDataProtector _encryptor;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         private readonly UserManager<ApplicationUser> _userManager;
         private static readonly FormOptions _defaultFormOptions = new FormOptions();
 
-        public FileTransferController(IConfiguration configuration, CrivDbContext context, ILoggerFactory logger, IDataProtectionProvider provider, IHostingEnvironment env, UserManager<ApplicationUser> userManager) : base(configuration, context, logger) {
+        public FileTransferController(IConfiguration configuration, CrivDbContext context, ILoggerFactory logger, IDataProtectionProvider provider, IWebHostEnvironment env, UserManager<ApplicationUser> userManager) : base(configuration, context, logger) {
             _encryptor = provider.CreateProtector(_crivConfig.GetValue<string>("Protector"));
             _environment = env;
             _userManager = userManager;
